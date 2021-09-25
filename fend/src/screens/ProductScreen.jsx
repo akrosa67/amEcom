@@ -1,79 +1,116 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Ratings from "../components/Ratings";
+import MessageBox from "../components/MessageBox";
+import LoadingBox from "../components/LoadingBox";
+import { detailsProduct } from "../actions/productActions";
 const ProductScreen = (props) => {
-  const [product, setProduct] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const { data } = await axios.get("/api/products");
-      setProduct(data);
-      //   console.log("UseEffect..");
-      //   console.log(data);
-    };
-    fetchData();
-  }, []);
-
-  const data = product.find((a) => a.id === parseInt(props.match.params.id));
-
+  const [qty, setQty] = useState(1);
+  const dispatch = useDispatch();
+  const productDetails = useSelector((state) => state.productDetails);
+  const { loading, error, product } = productDetails;
+  const productId = props.match.params.id;
   // console.log(typeof(data.id));
   // console.log(typeof(parseInt(props.match.params.id)));
-  if (!data) {
-    return <h1> Product not found</h1>;
-  } else {
-    return (
-      <div>
-        <Link to="/">Back to Prouct</Link>
+  useEffect(() => {
+    dispatch(detailsProduct(productId));
+    // console.log(loading)
+  }, [dispatch, productId]);
+  // console.log('pp',props);  // console.log(product)
+  // console.log(...Array(product.countOfStock).keys())
+  const addToCartHandler = ()=>{
+    props.history.push(`/cart/${productId}?qty=${qty}`)
+  }
+  return (
+    <div>
+      {loading ? (
+        <LoadingBox />
+      ) : error ? (
+        <MessageBox variant="danger">{error}</MessageBox>
+      ) : (
+        <div>
+          <Link to="/">Back to Prouct</Link>
 
-        <div className="row top">
-          <div className="col-2">
-            <img className="large" src={`../${data.image}`} alt={data.name} />
-          </div>
-          <div className="col-1">
-            <ul>
-              <li>
-                <h1>{data.name}</h1>
-              </li>
-              <li>
-                <Ratings rating={data.rating} numReviews={data.numReviews} />
-              </li>
-              <li>Price: &#8377;{data.price}</li>
-              <li>Description: {data.descp}</li>
-            </ul>
-          </div>
-          <div className="col-1">
-            <div className="card card-body">
+          <div className="row top">
+            <div className="col-2">
+              <img
+                className="large"
+                src={`../${product.image}`}
+                alt={product.name}
+              />
+            </div>
+            <div className="col-1">
               <ul>
                 <li>
-                  <div className="row">
-                    <div>Price</div>
-                    <div className="price">&#8377; {data.price}</div>
-                  </div>
+                  <h1>{product.name}</h1>
                 </li>
                 <li>
-                  <div className="row">
-                    <div>Status</div> 
-                    <div>
-                      {data.countOfStock > 0 ? (
-                        <span className="success">In Stock</span>
-                      ) : (
-                        <span className="error">Not Available</span>
-                      )}
-                    </div>
-                  </div>
+                  <Ratings
+                    rating={product.rating}
+                    numReviews={product.numReviews}
+                  />
                 </li>
-                <li>
-                  <button className="primary block">Add to Cart</button>
-                </li>
+                <li>Price: &#8377;{product.price}</li>
+                <li>Description: {product.descp}</li>
               </ul>
+            </div>
+            <div className="col-1">
+              <div className="card card-body">
+                <ul>
+                  <li>
+                    <div className="row">
+                      <div>Price</div>
+                      <div className="price">&#8377; {product.price}</div>
+                    </div>
+                  </li>
+                  <li>
+                    <div className="row">
+                      <div>Status</div>
+                      <div>
+                        {product.countOfStock > 0 ? (
+                          <span className="success">In Stock</span>
+                        ) : (
+                          <span className="error">Not Available</span>
+                        )}
+                      </div>
+                    </div>
+                  </li>
+                  {product.countOfStock > 0 && (
+                    <>
+                      <li>
+                        <div className="row">
+                          <div>Qty</div>
+                          <div>
+                            <select
+                              value={qty}
+                              onChange={(e) => setQty(e.target.value)}
+                            >
+                              {[...Array(product.countOfStock)
+                                  .keys()]
+                                  .map((x) => (
+                                    <option key={x + 1} value={x + 1}>
+                                      {x + 1}
+                                    </option>
+                                  ))
+                              }
+                            </select>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <button onClick={addToCartHandler} className="primary block">Add to Cart</button>
+                      </li>
+                    </>
+                  )}
+                </ul>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    );
-  }
+      )}
+    </div>
+  );
 };
 
 export default ProductScreen;
