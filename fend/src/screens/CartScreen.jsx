@@ -24,6 +24,7 @@ const CartScreen = (props) => {
   const checkoutHandler=()=>{
     props.history.push('/signin/?redirect=shipping')
   }
+  console.log('cartScreen',props)
   return (
     <div className="row top">
       <div className="col-2">
