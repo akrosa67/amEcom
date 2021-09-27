@@ -56,7 +56,7 @@ const  dispatch = useDispatch()
             </Link>
             <ul className='dropdown-content'>
               <li>
-               <Link to='#signout' onClick={signoutHandler}>Sign Out</Link>
+               <Link to='/' onClick={signoutHandler}>Sign Out</Link>
             </li>
             </ul>
           </div>

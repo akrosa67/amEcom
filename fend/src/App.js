@@ -8,6 +8,8 @@ import { useSelector } from "react-redux";
 import SigninScreen from "./screens/SigninScreen.jsx";
 import RegisterScreen from "./screens/RegisterScreen.jsx";
 import { ShippingAddressScreen } from "./screens/ShippingAddressScreen.jsx";
+import { PaymentMethodScreen } from "./screens/PaymentMethodScreen.jsx";
+import PlaceorderScreen from "./screens/PlaceorderScreen.jsx";
 
 function App() {
   const cart = useSelector(state=>state.cart)
@@ -24,6 +26,9 @@ function App() {
           <Route path='/signin' component={SigninScreen} />
           <Route path='/register' component={RegisterScreen} />
        <Route path='/shipping' component={ShippingAddressScreen} />
+       <Route path='/payment' component={PaymentMethodScreen} />
+       <Route path='/placeorder' component={PlaceorderScreen} />
+
         </main>
         <footer className="row center">Footer content</footer> 
       </div>
