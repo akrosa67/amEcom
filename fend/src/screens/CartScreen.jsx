@@ -8,8 +8,10 @@ const CartScreen = (props) => {
   const productId = props.match.params.id;
   const qty = props.location.search
     ? Number(props.location.search.split("=")[1])
-    : 1;
+    : 1 ;
   // console.log(props)
+  // const userSignin = useSelector((state) => state.userSignin);
+  // const { userInfo } = userSignin;
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
@@ -22,7 +24,7 @@ const CartScreen = (props) => {
     dispatch(removeFromCart(id))
   };
   const checkoutHandler=()=>{
-    props.history.push('/signin/?redirect=shipping')
+      props.history.push('/signin?redirect=shipping')
   }
   console.log('cartScreen',props)
   return (

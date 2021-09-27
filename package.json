@@ -2,7 +2,6 @@
   "name": "ecommm",
   "type": "module",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "start": "nodemon --watch bend --exec node --experimental-modules bend/server.js"
@@ -21,5 +20,14 @@
   "devDependencies": {
     "eslint": "^7.32.0",
     "eslint-plugin-react": "^7.26.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/akrosa67/amEcom.git"
+  },
+  "bugs": {
+    "url": "https://github.com/akrosa67/amEcom/issues"
+  },
+  "homepage": "https://github.com/akrosa67/amEcom#readme",
+  "description": ""
 }

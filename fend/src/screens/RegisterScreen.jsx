@@ -25,6 +25,7 @@ const [confirmPassword, setConfirmPassword] = useState('')
     }
     console.log("use", loading);
   }, [props.history, userInfo, redirect]);
+console.log(props.history)
   const dispatch = useDispatch();
   const submitHandler = (e) => {
     e.preventDefault();
