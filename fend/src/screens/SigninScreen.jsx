@@ -13,22 +13,22 @@ const SigninScreen = (props) => {
     ? props.location.search.split("=")[1]
     : "/";
   // console.log(props)
-console.log(props.location.search)
+// console.log(props.location.search)
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo, loading, error } = userSignin;
   useEffect(() => {
     if (userInfo) {
       props.history.push(redirect);
     }
-    console.log("use",loading)
+    // console.log("use",loading)
   }, [props.history, userInfo, redirect]);
   const dispatch = useDispatch();
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(signin(email, password));
-    console.log(error)
+    // console.log(error)
   };
-console.log("sign-props",props)
+// console.log("sign-props",props)
   return (
     <div>
       <form className="form" onSubmit={submitHandler}>

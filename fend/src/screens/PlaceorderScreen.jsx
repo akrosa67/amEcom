@@ -10,7 +10,7 @@ import MessageBox from "../components/MessageBox";
 const PlaceorderScreen = (props) => {
   const cart = useSelector((state) => state.cart);
   if (!cart.paymentMethod) props.history.push("/payment");
-  console.log(cart);
+  // console.log(cart);
   const orderCreate = useSelector((state) => state.orderCreate);
   const { loading, success, error, order } = orderCreate;
   const toPrice = (num) => Number(num.toFixed(2)); // if num= 10.33333 it returns 5.33
@@ -20,6 +20,7 @@ const PlaceorderScreen = (props) => {
   cart.shippingPrice = cart.itemsPrice > 100 ? toPrice(0) : toPrice(10);
   cart.taxPrice = toPrice(0.15 * cart.itemsPrice);
   cart.totalPrice = cart.itemsPrice + cart.shippingPrice + cart.taxPrice;
+  console.log(cart.cartItems)
   const dispatch = useDispatch();
   const placeOrderHandler = () => {
     dispatch(createOrder({ ...cart, orderItems: cart.cartItems })); // i changed ' Take all the cart value and change cartItems into orderItems'
@@ -27,6 +28,7 @@ const PlaceorderScreen = (props) => {
   useEffect(() => {
     if (success) {
       props.history.push(`/order/${order._id}`);
+      console.log("Place Order ID",order._id)
       dispatch({ type: ORDER_CREATE_RESET });
     }
   }, [dispatch, success, order, props.history]);

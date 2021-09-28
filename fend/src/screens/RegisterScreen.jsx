@@ -23,9 +23,9 @@ const [confirmPassword, setConfirmPassword] = useState('')
     if (userInfo) {
       props.history.push(redirect);
     }
-    console.log("use", loading);
+    // console.log("use", loading);
   }, [props.history, userInfo, redirect]);
-console.log(props.history)
+// console.log(props.history)
   const dispatch = useDispatch();
   const submitHandler = (e) => {
     e.preventDefault();
@@ -36,7 +36,7 @@ console.log(props.history)
       dispatch(register(name, email, password));
     }
 
-    console.log(error);
+    // console.log(error);
   };
 
   return (

@@ -11,7 +11,7 @@ export const ShippingAddressScreen = (props) => {
   if (!userInfo) {
     props.history.push("/signin");
   }
-  console.log(shippingAddress)
+  // console.log(shippingAddress)
   const [fullName, setFullName] = useState(shippingAddress.fullName);
   const [address, setAddress] = useState(shippingAddress.address);
   const [city, setCity] = useState(shippingAddress.city);
