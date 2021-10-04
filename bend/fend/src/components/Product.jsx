@@ -16,7 +16,7 @@ const Product = ({product}) => {
         </Link>
       <Ratings rating={product.rating} numReviews={product.numReviews}/>
         <div className="price">$ {product.price}</div>
-      </div>
+      </div> 
     </div>
   );
 };
